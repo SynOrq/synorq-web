@@ -1,29 +1,29 @@
-import { Target, Lightbulb, TrendingUp, Shield } from "lucide-react";
+import { Boxes, SlidersHorizontal, TrendingUp, ShieldCheck } from "lucide-react";
 
 const values = [
   {
-    icon: Target,
-    title: "Gerçek Problem Odaklı",
+    icon: Boxes,
+    title: "Süreç Standardizasyonu",
     description:
-      "Hayali senaryolar değil, gerçek iş problemlerini çözüyoruz. Her ürün, sahadan gelen bir ihtiyaca yanıt verir.",
+      "Ad-hoc çalışan ekipler için tekrarlanabilir, izlenebilir ve ölçülebilir süreç altyapısı kuruyoruz.",
   },
   {
-    icon: Lightbulb,
-    title: "Sadelik İlkesi",
+    icon: SlidersHorizontal,
+    title: "Merkezi Görünürlük",
     description:
-      "Karmaşık iş süreçlerini basitleştirmek için tasarlandık. Kullanmak için MBA derecesine ihtiyaç duymazsınız.",
+      "Farklı araçlara dağılmış operasyonları tek kontrol katmanında toplayarak gerçek zamanlı karar desteği sağlıyoruz.",
   },
   {
     icon: TrendingUp,
-    title: "Büyümeyle Ölçeklenir",
+    title: "Modüler Geçiş",
     description:
-      "5 kişilik bir ekiple başlayıp 500 kişilik organizasyona büyüdüğünüzde Synorq sizinle büyür.",
+      "5 kişilik ekipten 500 kişilik organizasyona — ihtiyaç duyduğunuz modüllerle başlayın, büyüdükçe genişletin.",
   },
   {
-    icon: Shield,
-    title: "Güven & Şeffaflık",
+    icon: ShieldCheck,
+    title: "AI Destekli Workflow",
     description:
-      "Verileriniz güvende, süreçleriniz şeffaf. Kurumsal güvenlik standartlarıyla kişisel servis kalitesini birleştiriyoruz.",
+      "Yapay zekâyı hype olmaktan çıkarıp gerçek iş akışlarına entegre ediyoruz. Yönetilebilir, ölçülebilir, güvenilir.",
   },
 ];
 
@@ -35,39 +35,44 @@ export default function About() {
           {/* Left */}
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-sm font-medium mb-6">
-              Hakkımızda
+              Neden Synorq?
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight leading-tight">
-              Ajans modelini
+              Özel yazılım esnekliği,
               <br />
-              <span className="gradient-text">ürün yaklaşımıyla</span>
-              <br />
-              birleştirdik
+              <span className="gradient-text">SaaS ölçeklenebilirliği</span>
             </h2>
-            <div className="space-y-4 text-gray-600 leading-relaxed">
-              <p>
-                Synorq, işletmelerin operasyonlarını, projelerini ve yapay zekâ
-                destekli iş akışlarını daha verimli, daha kontrollü ve daha
-                ölçeklenebilir şekilde yönetmesini sağlayan bir yazılım
-                geliştirme ve dikey SaaS ürün şirketidir.
-              </p>
-              <p>
-                Özellikle KOBİ&apos;ler, ajanslar ve operasyonel karmaşıklığı
-                yüksek sektörler için, gerçek iş problemlerini çözen modern
-                dijital ürünler geliştiriyoruz.
-              </p>
-              <p>
-                Yalnızca özel yazılım üreten bir yapı değil; belirli sektörlere
-                yönelik, tekrar eden problemleri ürünleştiren ve abonelik
-                modeliyle sunan bir teknoloji markasıyız.
+
+            <p className="text-gray-600 leading-relaxed mb-4">
+              Synorq, klasik &ldquo;bir şeyler yap&rdquo; ajansı değil. Belirli sektörlerin
+              tekrar eden operasyon problemlerini ürünleştiren, abonelik modeliyle sunan
+              bir teknoloji markası.
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-8">
+              Her modül gerçek sahadan gelen bir ihtiyaca yanıt verir. Kullanmak için IT
+              uzmanı, anlamak için danışman gerekmez.
+            </p>
+
+            <div className="p-5 bg-white rounded-2xl border border-gray-100 shadow-sm">
+              <p className="text-gray-800 font-semibold leading-relaxed text-sm">
+                &ldquo;Synorq, özel yazılım esnekliği ile SaaS ölçeklenebilirliğini bir araya getirir.
+                İşletmelerin gerçek operasyon problemlerini, modüler ve uygulanabilir ürünlerle çözer.&rdquo;
               </p>
             </div>
 
-            <div className="mt-8 p-6 bg-white rounded-2xl border border-gray-100">
-              <p className="text-gray-800 font-semibold italic leading-relaxed">
-                &ldquo;Synorq, iş operasyonlarını ve AI destekli süreçleri tek merkezden
-                yöneten yeni nesil bir B2B SaaS ve yazılım markasıdır.&rdquo;
-              </p>
+            <div className="mt-8 flex items-center gap-3">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors"
+              >
+                Keşif Görüşmesi Planla
+              </a>
+              <a
+                href="#products"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-gray-200 text-gray-700 text-sm font-semibold rounded-xl hover:border-indigo-200 hover:text-indigo-600 transition-all"
+              >
+                Ürünleri İncele
+              </a>
             </div>
           </div>
 
@@ -83,7 +88,7 @@ export default function About() {
                   <div className="inline-flex p-2.5 bg-indigo-50 rounded-xl mb-4">
                     <Icon size={20} className="text-indigo-600" />
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-2">{value.title}</h3>
+                  <h3 className="font-bold text-gray-900 mb-2 text-sm">{value.title}</h3>
                   <p className="text-sm text-gray-500 leading-relaxed">{value.description}</p>
                 </div>
               );

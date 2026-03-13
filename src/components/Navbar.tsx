@@ -60,7 +60,7 @@ export default function Navbar() {
               href="#contact"
               className="px-5 py-2 text-sm font-semibold bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm hover:shadow-indigo-200 hover:shadow-md"
             >
-              Demo İste
+              Keşif Görüşmesi Planla
             </a>
           </div>
 
@@ -93,7 +93,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
               className="block w-full text-center px-5 py-2.5 text-sm font-semibold bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
             >
-              Demo İste
+              Keşif Görüşmesi Planla
             </a>
           </div>
         </div>
