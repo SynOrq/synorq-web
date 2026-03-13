@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Clock, CheckCircle, Send, ArrowRight } from "lucide-react";
+import { Mail, Clock, CheckCircle, ArrowRight, AlertCircle } from "lucide-react";
 
 const topics = [
   "Proje yönetimi",
@@ -13,13 +13,14 @@ const topics = [
 ];
 
 const processSteps = [
-  { icon: Send, text: "Formu doldurun — 2 dakika yeter" },
+  { icon: Mail, text: "Formu doldurun — 2 dakika yeter" },
   { icon: Clock, text: "24 saat içinde size dönüyoruz" },
   { icon: CheckCircle, text: "30 dk ücretsiz keşif görüşmesi planlıyoruz" },
 ];
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -27,9 +28,29 @@ export default function Contact() {
     topic: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setStatus("loading");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Bir hata oluştu.");
+      }
+
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "Bir hata oluştu.");
+    }
   };
 
   return (
@@ -70,14 +91,19 @@ export default function Contact() {
               </div>
               <div>
                 <div className="text-xs text-gray-400 font-medium">Doğrudan ulaşın</div>
-                <div className="text-sm font-semibold text-gray-800">hello@synorq.com</div>
+                <a
+                  href="mailto:hello@synorq.com"
+                  className="text-sm font-semibold text-gray-800 hover:text-indigo-600 transition-colors"
+                >
+                  hello@synorq.com
+                </a>
               </div>
             </div>
           </div>
 
           {/* Right - Form */}
           <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
-            {submitted ? (
+            {status === "success" ? (
               <div className="text-center py-12">
                 <div className="inline-flex p-4 bg-green-100 rounded-full mb-4">
                   <CheckCircle size={32} className="text-green-600" />
@@ -85,8 +111,9 @@ export default function Contact() {
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
                   Mesajınız İletildi!
                 </h3>
-                <p className="text-gray-500 text-sm">
-                  24 saat içinde size geri döneceğiz ve görüşme zamanı belirleyeceğiz. Teşekkürler!
+                <p className="text-gray-500 text-sm leading-relaxed max-w-xs mx-auto">
+                  24 saat içinde size geri döneceğiz ve görüşme zamanı belirleyeceğiz.
+                  Gelen kutunuzu kontrol edin, onay maili gönderildi.
                 </p>
               </div>
             ) : (
@@ -101,7 +128,8 @@ export default function Contact() {
                       required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:bg-white transition-all"
+                      disabled={status === "loading"}
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:bg-white transition-all disabled:opacity-50"
                       placeholder="Adınız"
                     />
                   </div>
@@ -113,7 +141,8 @@ export default function Contact() {
                       type="text"
                       value={form.company}
                       onChange={(e) => setForm({ ...form, company: e.target.value })}
-                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:bg-white transition-all"
+                      disabled={status === "loading"}
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:bg-white transition-all disabled:opacity-50"
                       placeholder="Şirket adı"
                     />
                   </div>
@@ -128,7 +157,8 @@ export default function Contact() {
                     required
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:bg-white transition-all"
+                    disabled={status === "loading"}
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:bg-white transition-all disabled:opacity-50"
                     placeholder="email@sirket.com"
                   />
                 </div>
@@ -141,23 +171,42 @@ export default function Contact() {
                     required
                     value={form.topic}
                     onChange={(e) => setForm({ ...form, topic: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:bg-white transition-all appearance-none cursor-pointer"
+                    disabled={status === "loading"}
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:bg-white transition-all appearance-none cursor-pointer disabled:opacity-50"
                   >
                     <option value="">Konu seçin...</option>
                     {topics.map((t) => (
-                      <option key={t} value={t}>
-                        {t}
-                      </option>
+                      <option key={t} value={t}>{t}</option>
                     ))}
                   </select>
                 </div>
 
+                {status === "error" && (
+                  <div className="flex items-center gap-2.5 px-4 py-3 bg-red-50 border border-red-100 rounded-xl text-red-700 text-sm">
+                    <AlertCircle size={16} className="flex-shrink-0" />
+                    {errorMsg}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-colors shadow-sm hover:shadow-indigo-200 hover:shadow-md group"
+                  disabled={status === "loading"}
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-colors shadow-sm hover:shadow-indigo-200 hover:shadow-md group disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Keşif Görüşmesi Planla
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  {status === "loading" ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                      </svg>
+                      Gönderiliyor...
+                    </>
+                  ) : (
+                    <>
+                      Keşif Görüşmesi Planla
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </button>
 
                 <p className="text-xs text-center text-gray-400">
