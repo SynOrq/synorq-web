@@ -28,6 +28,10 @@ export const metadata: Metadata = {
     type: "website",
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

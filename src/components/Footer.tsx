@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Linkedin, Twitter, Github } from "lucide-react";
+import SynorqLogo from "@/components/SynorqLogo";
 
 export default function Footer() {
   return (
@@ -8,13 +9,8 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
-              </div>
-              <span className="font-bold text-xl text-white">
-                Syn<span className="text-indigo-400">orq</span>
-              </span>
+            <div className="mb-4">
+              <SynorqLogo variant="full" theme="white" height={34} />
             </div>
             <p className="text-sm leading-relaxed max-w-xs text-gray-500">
               İş operasyonlarını ve AI destekli süreçleri tek merkezden yöneten
