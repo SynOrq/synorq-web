@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="mb-4">
-              <SynorqLogo variant="full" theme="white" height={34} />
+              <SynorqLogo variant="full" theme="white" height={44} />
             </div>
             <p className="text-sm leading-relaxed max-w-xs text-gray-500">
               İş operasyonlarını ve AI destekli süreçleri tek merkezden yöneten

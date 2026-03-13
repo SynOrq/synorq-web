@@ -34,7 +34,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
-            <SynorqLogo variant="full" theme="color" height={34} />
+            <SynorqLogo variant="full" theme="color" height={44} />
           </Link>
 
           {/* Desktop nav */}
